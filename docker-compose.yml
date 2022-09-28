@@ -1,0 +1,192 @@
+version: '3'
+
+services:
+  config-service:
+    image: 'pixie-config-server:latest'
+    build: './pixie-config-server/.'
+    container_name: 'pixie-config-server'
+    ports:
+      - "8088:8088"
+    networks:
+      - core-network
+    environment:
+      - "SPRING_PROFILES_ACTIVE=native,production"
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  admin-service:
+    image: 'pixie-admin-server:latest'
+    build: './pixie-admin-server/.'
+    container_name: 'pixie-admin-server'
+    depends_on:
+      - config-service
+    ports:
+      - "8087:8087"
+    networks:
+      - core-network
+    environment:
+      - "SPRING_PROFILES_ACTIVE=native,production"
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  discovery-service:
+    image: 'pixie-discovery-server'
+    build: './pixie-discovery-server/.'
+    container_name: 'pixie-discovery-service'
+    depends_on:
+      - config-service
+      - admin-service
+    ports:
+      - "8061:8061"
+    networks:
+      - core-network
+    environment:
+      - "SPRING_PROFILES_ACTIVE=native,production"
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+
+  gateway-service:
+    image: 'pixie-gateway-server'
+    build: './pixie-gateway-server/.'
+    container_name: 'pixie-gateway-server'
+    depends_on:
+      - config-service
+      - admin-service
+      - discovery-service
+    ports:
+      - "8060:8060"
+    networks:
+      - core-network
+    environment:
+      - "SPRING_PROFILES_ACTIVE=native,production"
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+
+
+
+  person-service:
+    image: 'pixie-person-service'
+    build: './pixie-person-service/.'
+    container_name: 'pixie-person-service'
+    depends_on:
+      - config-service
+      - admin-service
+      - discovery-service
+      - gateway-service
+    networks:
+      - core-network
+    environment:
+      - "SPRING_PROFILES_ACTIVE=native,production"
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  document-service:
+    image: 'pixie-document-service'
+    build: './pixie-document-service/.'
+    container_name: 'pixie-document-service'
+    depends_on:
+      - config-service
+      - admin-service
+      - discovery-service
+      - gateway-service
+    networks:
+      - core-network
+    environment:
+      - "SPRING_PROFILES_ACTIVE=native,production"
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  note-service:
+    image: 'pixie-note-service'
+    build: './pixie-note-service/.'
+    container_name: 'pixie-note-service'
+    depends_on:
+      - config-service
+      - admin-service
+      - discovery-service
+      - gateway-service
+    networks:
+      - core-network
+    environment:
+      - "SPRING_PROFILES_ACTIVE=native,production"
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+
+  notification-service:
+    image: 'pixie-notification-service'
+    build: './pixie-notification-service/.'
+    container_name: 'pixie-notification-service'
+    depends_on:
+      - config-service
+      - admin-service
+      - discovery-service
+      - gateway-service
+    networks:
+      - core-network
+    environment:
+      - "SPRING_PROFILES_ACTIVE=native,production"
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+
+  reminder-service:
+    image: 'pixie-reminder-service'
+    build: './pixie-reminder-service/.'
+    container_name: 'pixie-reminder-service'
+    depends_on:
+      - config-service
+      - admin-service
+      - discovery-service
+      - gateway-service
+    networks:
+      - core-network
+    environment:
+      - "SPRING_PROFILES_ACTIVE=native,production"
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+
+  task-service:
+    image: 'pixie-task-service'
+    build: './pixie-task-service/.'
+    container_name: 'pixie-task-service'
+    depends_on:
+      - config-service
+      - admin-service
+      - discovery-service
+      - gateway-service
+    networks:
+      - core-network
+    environment:
+      - "SPRING_PROFILES_ACTIVE=native,production"
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+volumes:
+  pgdata:
+
+networks:
+  core-network:

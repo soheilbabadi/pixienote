@@ -1,12 +1,12 @@
 FROM eclipse-temurin:17-jdk-jammy as builder
 COPY .mvn/ .mvn
 COPY mvnw pom.xml ./
-RUN ./mvnw dependency:go-offline
+#RUN ./mvnw dependency:go-offline
 COPY ./src ./src
 RUN ./mvnw clean install
-RUN sh -c 'touch /pixienote-discovery-service.jar'
+RUN sh -c 'touch /pixie-discovery-service.jar'
 
 
-FROM eclipse-temurin:17-jdk-jammy
-COPY --from=builder target/*.jar pixienote-discovery-service.jar
-ENTRYPOINT ["java", "-jar", "pixienote-discovery-service.jar" ]
+FROM amd64/eclipse-temurin:17-jre-jammy
+COPY --from=builder target/*.jar pixie-discovery-service.jar
+ENTRYPOINT ["java", "-jar", "pixie-discovery-service.jar" ]

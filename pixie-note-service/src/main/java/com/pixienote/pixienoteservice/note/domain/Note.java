@@ -36,5 +36,9 @@ public class Note implements Serializable {
     @Column( nullable = false)
     private LocalDateTime updatedOn;
 
+    @ManyToOne(cascade = CascadeType.ALL,targetEntity = Category.class)
+    private Category category;
+
+
 
 }
