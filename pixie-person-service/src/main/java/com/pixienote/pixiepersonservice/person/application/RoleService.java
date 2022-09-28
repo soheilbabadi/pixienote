@@ -1,7 +1,5 @@
 package com.pixienote.pixiepersonservice.person.application;
 
-import com.pixienote.pixiepersonservice.person.domain.Role;
-
 import com.pixienote.pixiepersonservice.person.domain.dto.RoleDto;
 
 import java.util.List;

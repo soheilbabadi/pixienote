@@ -12,21 +12,18 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 
 @RestController
-@RequestMapping(path = "/person-picture")
+@RequestMapping(path = "/person-picture", produces = MediaType.APPLICATION_JSON_VALUE)
 public class PersonPictureController {
 
     @Autowired
-    private  PersonPictureService personPictureService;
+    private PersonPictureService personPictureService;
 
-
-
-    @PostMapping(path = "/post", consumes = "multipart/form-data", produces = "application/json")
+    @PostMapping(path = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PersonPictureDto> uploadImage(@RequestBody MultipartFile file, @PathVariable long personId) throws IOException {
 
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(new PersonPictureDto());
     }
-
 
     @GetMapping(path = {"/get-by-id/{id}"})
     public ResponseEntity<byte[]> getImageById(@PathVariable("id") String id) {

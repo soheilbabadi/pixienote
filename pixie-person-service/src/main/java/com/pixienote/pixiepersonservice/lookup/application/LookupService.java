@@ -1,6 +1,5 @@
 package com.pixienote.pixiepersonservice.lookup.application;
 
-import com.pixienote.pixiepersonservice.exception.LookupExeption;
 import com.pixienote.pixiepersonservice.lookup.domain.LookupDto;
 
 import java.util.List;

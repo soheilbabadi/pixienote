@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.io.Serial;
 import java.io.Serializable;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
