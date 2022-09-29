@@ -1,6 +1,6 @@
 package com.pixienote.pixiepersonservice.person.domain;
 
-import com.pixienote.pixiepersonservice.lookup.domain.Lookup;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,7 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Data
-@Entity
+//@Entity
 public class Person implements Serializable {
 
     @Serial
